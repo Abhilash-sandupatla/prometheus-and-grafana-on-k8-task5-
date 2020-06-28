@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+ name: grafana-pvc1
+ labels: 
+   name: grafanapvc1
+spec:
+ accessModes:
+ - ReadWriteOnce
+ resources:
+   requests:
+    storage: 2Gi
+
