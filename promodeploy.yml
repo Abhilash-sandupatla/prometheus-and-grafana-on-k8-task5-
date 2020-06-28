@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: promdeploy7
+  labels: 
+   env: prod
+   region: ind
+spec:
+  replicas: 1
+  selector:
+   matchLabels:
+     env: prod
+     region: ind
+
+   matchExpressions:
+   - { key: env, operator: In, values: [ prod ] }
+   - { key: region, operator: In, values: [ ind ] }
+   
+
+  template:
+   metadata:
+     name: promdeploy7
+     labels:
+       env: prod
+       region: ind
+
+   spec:
+     containers:
+     - name: "prometheusonk8withpvc007"
+       image: "abhi1747/prometheus007"
+      
+       env:
+        - name: x
+          value: ABHILASH-SANDUPATLA
+       volumeMounts:
+         - name: prometheus-volume1
+           mountPath: prom_data
+     volumes:
+         - name: prometheus-volume1
+           persistentVolumeClaim:
+            claimName: prometheus-pvc1
+     
