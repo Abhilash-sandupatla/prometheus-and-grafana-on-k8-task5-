@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+ name: grafanars01747
+spec:
+ replicas: 1
+ selector: 
+  matchLabels:
+   env: prod
+   region: ind
+  matchExpressions:
+  - { key: env, operator: In, values: [ prod ] }
+  - { key: region, operator: In, values: [ ind ] }
+ template:
+  metadata:
+    name: grafana01747
+    labels: 
+      env: prod
+      region: ind
+  spec: 
+   containers:
+   - name: "grafanaonkk8swithpvc"
+     image: "abhi1747/grafana007"
+     ports:
+     - containerPort: 80
+     volumeMounts:
+      - name: grafana-volume1
+        mountPath: /var/lib/grafana
+   volumes:
+      - name: grafana-volume1
+        persistentVolumeClaim:
+          claimName: grafana-pvc1
